@@ -96,6 +96,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
+    max-height: 100%;
  }
 
  .black-number {
@@ -112,9 +114,11 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
+    pointer-events: none;
+    max-height: 100%;
  }
 
- /* .chip {
+ .chip {
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -124,10 +128,9 @@ body {
     height: 20px;
     line-height: 20px;
     text-align: center;
-    color: black;
+    color: red;
   }
-   */
-
- 
-  
-  
+   
+.grid-cell:hover {
+    border: 1px solid pink;
+}

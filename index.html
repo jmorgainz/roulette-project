@@ -8,28 +8,33 @@
 </head>
 <body>
 
-  <div class="container">
-    <div id="playerCoinsContainer">
-
+  
+  <div class="fixed">
+      <div id="winMessage" class="message"></div>
+      <div id="houseWinMessage" class="message"></div>
+      <div class="center">
+        <div id="playerCoinsContainer"></div>
+      </div>
+      
+      <div class="bet-buttons">
+        <button class="Btn" id="bet1Coin">Bet 1 Coin</button>
+        <button class="Btn" id="bet5Coins">Bet 5 Coins</button>
+        <button class="Btn" id="bet10Coins">Bet 10 Coins</button>
+        <button class="Btn" id="spinButton">Spin</button>
+        <button class="Btn" id="clearButton">Clear</button>
+      </div>
     </div>
-
-    <div class="bet-buttons">
-        <button id="bet1Coin">Bet 1 Coin</button>
-        <button id="bet5Coins">Bet 5 Coins</button>
-        <button id="bet10Coins">Bet 10 Coins</button>
-        <button id="spinButton">Spin</button>
-    </div>
-
-    <div class="labels">
-    <div class="label red" id="redLabel">Red</div>
-    <div class="label black" id="blackLabel">Black</div>
-    </div>
-
-    <div id="grid" class="grid-container">
+    <div class="container">
+      
+      <div class="labels">
+        <div class="label red" id="redLabel">Gold</div>
+        <div class="label black" id="blackLabel">Black</div>
+      </div>
+      <div id="grid" class="grid-container">
         
+      </div>
     </div>
-     </div>
-    </div>
+    
 
   <script src="main.js"></script>
 </body>

@@ -3,94 +3,118 @@
 }
 
 body {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: darkgray;
+    background-image: url('https://img.freepik.com/premium-photo/modern-trendy-black-golden-gambling-concept-background-3d-illustration_550023-5.jpg?w=900');
+    background-size: cover;
   }
   
   .container {
     display: flex;
-    align-items: stretch;
+    justify-content: center;
+    /* position: absolute; */
+    /* top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    
   }
   
   .labels {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background-color: lightgray;
-    width:25%;
+    /* justify-content: space-between; */
+    background-color: gold;
+    width: 40px;
+    max-width: 10%;
+    margin-top: 30px;
+    /* max-height: 630px;
+    margin-top: 60px;
+    height: 100%;
+    margin-bottom: 30px;
+    padding-bottom: 30px; */
   }
   
   .label {
     color: white;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 10px;
+    /* padding: 10px; */
+    width: 50px;
     writing-mode: vertical-lr;
     transform: rotate(180deg);
-    height:35vh;
-    text-align: center;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 4px black;
   }
   
-  .red {
-    background-color: red; 
-    border: double black;
+  #redLabel {
+    background: linear-gradient(35deg,#77530a,#77530a,#77530a,#77530a,#77530a,#1c1602);
     border-width: 4px;
-
-    
+    cursor: pointer;
+    color: #000000;
+    border-top: none;
   }
-  
-  .black {
-    background-color: black;
-    border: double black;
-    border-width: 4px;
 
-    
-    
+  #blackLabel {
+    background: linear-gradient(35deg,#77530a,#000000,#000000,#000000,#000000,#000000);
+    border-width: 4px;
+    cursor: pointer;
+    color: #a97c21; 
+    border-bottom: none;
   }
   
   table {
     border-collapse: collapse;
   }
   
-  td {
+  /* td {
     border: 1px solid black;
     padding: 10px;
     text-align: center;
-  }
+  } */
 
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
-    border: 1px solid white;
-    width: 75%; 
+    border: 4px solid black;
+    /* width: 90%; */
+    /* min-width: 400px; */
+    width: 320px;
+    max-height: 600px;
+    height:600px ;
     padding: 10px;
-    margin: 0 auto;
+    margin-top: 30px;
     color: white;
-    background-color: rgb(6, 82, 6);
+    background-color: rgb(116, 116, 116);
   }
   
   .grid-cell {
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
     padding: 10px;
     text-align: center;
     cursor: pointer;
-    position: relative;
+    z-index: 4;
   }
 
  .red-number { 
-    background-color: red;
-    width: 85%;
-    height: 90%;
+    background-color: #77530a;
+    width: 45px;
+    height: 45px;
+    margin: 10px;
+    /* padding: .5rem; */
     position: absolute;
-    top: 2px;
-    left: 2.5px;
-    opacity: .55;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     transform: rotate(90deg);
     display: flex;
@@ -98,16 +122,15 @@ body {
     align-items: center;
     pointer-events: none;
     max-height: 100%;
+    z-index: -1;
  }
 
  .black-number {
     background-color: black;
-    width: 85%;
-    height: 90%;
+    width: 45px;
+    height: 45px;
     position: absolute;
-    top: 2px;
-    left: 2.5px;
-    opacity: .55;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     transform: rotate(90deg);
     display: flex;
@@ -116,21 +139,334 @@ body {
     color: white;
     pointer-events: none;
     max-height: 100%;
+    z-index: -1;
  }
 
  .chip {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    background: gold;
+    background: rgb(163, 163, 163);
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    width: 28px;
+    height: 28px;
+    line-height: 15px;
     text-align: center;
     color: red;
+    border: spotted;
+    border: 2px;
   }
    
 .grid-cell:hover {
-    border: 1px solid pink;
+    border: 1px solid gold;
+}
+
+.message {
+  font-size: 18px;
+  font-weight: bold;
+  color: #77530a;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.black-numbertxt, .red-numbertxt {
+  position: absolute;
+}
+
+.fixed {
+  margin-top: 200px;
+  /* padding-left: 200px; */
+}
+
+#bet1Coin {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+#bet1Coin::before {
+  position: absolute;
+  content: "Bet 1 Coin";
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+
+#bet1Coin:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#bet1Coin:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#bet1Coin:active {
+  transform: scale(0.95);
+}
+
+#bet5Coins {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+#bet5Coins::before {
+  position: absolute;
+  content: "Bet 5 Coins";
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+
+#bet5Coins:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#bet5Coins:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#bet5Coins:active {
+  transform: scale(0.95);
+}
+
+#bet10Coins {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+#bet10Coins::before {
+  position: absolute;
+  content: "Bet 10 Coins";
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+
+#bet10Coins:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#bet10Coins:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#bet10Coins:active {
+  transform: scale(0.95);
+}
+
+#spinButton {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+#spinButton:before {
+  position: absolute;
+  content: "Spin";
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+
+#spinButton:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#spinButton:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#spinButton:active {
+  transform: scale(0.95);
+}
+
+#playerCoinsContainer {
+  width: 140px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#77530a,#000000,#77530a,#77530a,#ffd277,#77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  position: relative;
+  display: flex;
+  cursor: default;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+#playerCoinsContainer::before {
+  position: absolute;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+
+#playerCoinsContainer:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#playerCoinsContainer:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#playerCoinsContainer:active {
+  transform: scale(0.95);
+}
+
+#clearButton {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+#clearButton:before {
+  position: absolute;
+  content: "Clear";
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+
+#clearButton:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#clearButton:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+#clearButton:active {
+  transform: scale(0.95);
+}
+
+.bet-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.center {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 24px;
 }

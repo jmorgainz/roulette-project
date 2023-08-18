@@ -1,180 +1,196 @@
-// const variables 
-
-
-
-const gridContainer = document.getElementById('grid');
-const blackNumbers = [15, 4, 2, 17, 6, 13, 11, 8, 10, 24, 33, 20, 31, 22, 29, 28, 35, 26];
-const redNumbers = [32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3];
+// Variables
+const blackNumbers = [
+  15, 4, 2, 17, 6, 13, 11, 8, 10, 24, 33, 20, 31, 22, 29, 28, 35, 26,
+];
+const redNumbers = [
+  32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3,
+];
+const redLabel = document.getElementById("redLabel");
+const blackLabel = document.getElementById("blackLabel");
+const gridContainer = document.getElementById("grid");
+const clearButton = document.getElementById("clearButton");
+let redBetAmount = 0;
+let blackBetAmount = 0;
 let playerCoins = 100;
 let selectedNumber = null;
-let bet;
-let winningNum = null
+let bet = 0;
+let winningNum = 0;
 let chosenNums = [];
-// let chosenNums = [32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3, 15, 4, 2, 17, 6, 13, 11, 8, 10, 24, 33, 20, 31, 22, 29, 28, 35, 26];
-
-// game board 
-function initializeGameBoard() {
-for (let row = 1; row <= 12; row++) {
-  for (let col = 1; col <= 3; col++) {
-    const num = (row - 1) * 3 + col;
-    const cell = document.createElement('div');
-    cell.className = 'grid-cell';
-    cell.textContent = num;
+let numberBets = {}
 
 
-    if (blackNumbers.includes(num)) {
-      const blackNumber = document.createElement('div');
-      blackNumber.className = 'black-number';
-      cell.appendChild(blackNumber);
-      const blackNumbertxt = document.createElement('span');
-      blackNumbertxt.className = 'black-numbertxt';
-      cell.appendChild(blackNumbertxt);
-    }
+// Event listeners
 
-
-    if (redNumbers.includes(num)) {
-      const redNumber = document.createElement('div');
-      redNumber.className = 'red-number';
-      cell.appendChild(redNumber);
-      const redNumbertxt = document.createElement('span');
-      redNumbertxt.className = 'red-numbertxt';
-      cell.appendChild(redNumbertxt);
-    }
-    gridContainer.appendChild(cell);
-        }
-    }
-}
-;
-// event listeners 
-gridContainer.addEventListener('click', function(event) {
-    if (bet) {
-    if(event.target.classList.contains('grid-cell')) {
-        selectedNumber = Number(event.target.textContent)
-        console.log('Selected Number:', selectedNumber)
-        chosenNums.push(selectedNumber);
-        console.log(chosenNums)
-        // chosenNums.includes(selectedNumer)
-        if (playerCoins >= bet) {
-            console.log(`Betting ${bet} coin() on number ${selectedNumber}`)
-            playerCoins += -bet;
-            updatePlayerCoins();
-        } else {
-          alert("Insufficient coins!");
-        } 
-    }
-}
-})
-
-document.getElementById('spinButton').addEventListener('click',spinWheel)
-
-
-document.getElementById('bet1Coin').addEventListener('click', function() {
-    if (bet) {
-    if (playerCoins >= 1) {
-        if (selectedNumber){
-      playerCoins -= 1;
-      updatePlayerCoins();
-      console.log(`Betting 1 coin on number ${selectedNumber}`)
-        } 
-      
-    } else {
-      alert("Insufficient coins!");
-    } 
-    bet = null
-} else {
-    bet =1;
-}
-    
-  });
-
-  document.getElementById('bet5Coins').addEventListener('click', function() {
-    console.log("5")
-    if (bet) {
-        if (playerCoins >= 5) {
-            if (selectedNumber) {
-          playerCoins -= 5;
-          updatePlayerCoins();
-          console.log(`Betting 5 coins on number ${selectedNumber}`)
-        }
-        } else {
-          alert("Insufficient coins!");
-        }
-    bet = null;
-    } else {
-        bet = 5
-    }
-  });
-
-  document.getElementById('bet10Coins').addEventListener('click', function() {
-    console.log("10")
-  if (bet) {        
-      if (playerCoins >= 10) {
-          if (selectedNumber){
-        playerCoins -= 10;
-        updatePlayerCoins();
-          } 
-      } else {
-        alert("Insufficient coins!");
-      }
-      bet = null;
-  } else {
-      bet = 10;
-  }
+document.getElementById("spinButton").addEventListener("click", spinWheel);
+document.getElementById("bet1Coin").addEventListener("click", () => setBet(1));
+console.log("bet1Coin clicked");
+document.getElementById("bet5Coins").addEventListener("click", () => setBet(5));
+document
+  .getElementById("bet10Coins")
+  .addEventListener("click", () => setBet(10));
+redLabel.addEventListener("click", () => {
+  redLabel.classList.add("selected");
+  blackLabel.classList.remove("selected");
+});
+blackLabel.addEventListener("click", () => {
+  blackLabel.classList.add("selected");
+  redLabel.classList.remove("selected");
+});
+redLabel.addEventListener("click", handleGridClick);
+blackLabel.addEventListener("click", handleGridClick);
+gridContainer.addEventListener("click", handleGridClick);
+clearButton.addEventListener("click", () => {
+  clearBet();
 });
 
-  // Function to initialize the player's coins
-function initializePlayerCoins() {
-    playerCoins = 100;
-    updatePlayerCoins();
-  }
-  
-  // Initial setup
-  initializePlayerCoins();
+// Initialization
+initializePlayerCoins();
+initializeGameBoard();
 
+// Functions
+function handleGridClick(event) {
+  if ((bet && event.target.classList.contains("grid-cell")) || (bet && event.target.classList.contains("selected"))) {
+    selectedNumber = Number(event.target.childNodes[0].data);
+    chosenNums.push(selectedNumber);
+    if (playerCoins >= bet) {
+      playerCoins -= bet;
+      updatePlayerCoins();
+      createChip(event.target, bet);
 
-  // <--------- functions ---------> 
-    
-  
-  function updatePlayerCoins() {
-      const playerCoinsContainer = document.getElementById('playerCoinsContainer')
-      playerCoinsContainer.textContent = `Player's Coins: ${playerCoins}`
-  }
-
-    function calculatePayout(betAmount) {
-        let payoutAmount = betAmount * 35;
-        playerCoins += payoutAmount;
-        updatePlayerCoins();
-        console.log(`Congratulations! You won ${payoutAmount} coins!`);
+      if (!numberBets[selectedNumber]) {
+        numberBets[selectedNumber] = 0;
       }
-
-    function checkWinner() {
-        if (selectedNumber) {
-          if (chosenNums.includes(winningNum)) {
-            calculatePayout(bet);
-          } else {
-            console.log("The house wins!");
-          }
-        } else {
-          console.log("Select a number before spinning the wheel.");
-        }
-      }
+      numberBets[selectedNumber] += bet;
     
-    function spinWheel() {
-        winningNum = Math.floor(Math.random() * 35) + 1
-            console.log('Spinning Wheel... Winning Number:', winningNum)
-            checkWinner()
-            if(chosenNums.includes(winningNum)) {
-                updatePlayerCoins()
-                let payoutAmount = bet * 35;
-                playerCoins += payoutAmount;
-                console.log(`You won ${payoutAmount} coins!`)
-                chosenNums = []
+      if (redLabel.classList.contains("selected")) {
+        redBetAmount += bet;
+      } else if (blackLabel.classList.contains("selected")) {
+        blackBetAmount += bet;
+      }
+    } else {
+      alert("Insufficient coins!");
     }
+  }
 }
 
-    function initializeGame() {
-        initializeGameBoard();
-        initializePlayerCoins();
+function spinWheel() {
+  winningNum = Math.floor(Math.random() * 1) + 1;
+  console.log(winningNum);
+  document.getElementById("winMessage").textContent = ""
+  document.getElementById("houseWinMessage").textContent = ""
+
+  if (numberBets[winningNum]) {
+    playerCoins += numberBets[winningNum] * 35;
+    numberBets[winningNum] = 0;
   }
 
-initializeGame()
+  if (redNumbers.includes(winningNum) && redBetAmount > 0) {
+    playerCoins += redBetAmount * 2;
+  } else if (blackNumbers.includes(winningNum) && blackBetAmount > 0)
+    playerCoins += blackBetAmount * 2;
+  redLabel.classList.remove("selected");
+  blackLabel.classList.remove("selected");
+  if (chosenNums.includes(winningNum)) {
+    updatePlayerCoins();
+    document.getElementById("winMessage").textContent = `You won ${bet * 35} coins!`;
+    chosenNums = [];
+    bet = 0;
+  } else { document.getElementById("houseWinMessage").textContent ="The house wins!"
+}
+  updatePlayerCoins();
+}
+
+function initializeGameBoard() {
+  for (let row = 1; row <= 12; row++) {
+    for (let col = 1; col <= 3; col++) {
+      const num = (row - 1) * 3 + col;
+      const cell = document.createElement("div");
+      cell.className = "grid-cell";
+      cell.textContent = num;
+
+      if (blackNumbers.includes(num)) {
+        const blackNumber = document.createElement("div");
+        blackNumber.className = "black-number";
+        cell.appendChild(blackNumber);
+        const blackNumbertxt = document.createElement("span");
+        blackNumbertxt.className = "black-numbertxt";
+        cell.appendChild(blackNumbertxt);
+      }
+
+      if (redNumbers.includes(num)) {
+        const redNumber = document.createElement("div");
+        redNumber.className = "red-number";
+        cell.appendChild(redNumber);
+        const redNumbertxt = document.createElement("span");
+        redNumbertxt.className = "red-numbertxt";
+        cell.appendChild(redNumbertxt);
+      }
+
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function initializePlayerCoins() {
+  playerCoins = 100;
+  updatePlayerCoins();
+}
+
+function updatePlayerCoins() {
+  const playerCoinsContainer = document.getElementById("playerCoinsContainer");
+  playerCoinsContainer.textContent = `Player's Coins: ${playerCoins}`;
+}
+
+function setBet(amount) {
+  bet = amount;
+}
+
+function createChip(target, amount) {
+  const chip = document.createElement("div");
+  chip.className = "chip";
+  chip.textContent = amount;
+  target.appendChild(chip);
+}
+
+function checkWinner() {
+  if (selectedNumber) {
+    if (chosenNums.includes(winningNum)) {
+      calculatePayout(bet);
+    } else {
+      console.log("The house wins!");
+    }
+  } else {
+    console.log("Select a number before spinning the wheel.");
+  }
+}
+
+function clearBet() {
+
+  console.log(numberBets);
+
+  for (let number in numberBets) {
+    playerCoins += numberBets[number];
+    numberBets[number] = 0;
+  }
+
+  console.log(playerCoins);
+  
+  playerCoins += redBetAmount
+  redBetAmount = 0;
+  console.log(playerCoins);
+  
+  playerCoins += blackBetAmount
+  blackBetAmount = 0;
+  console.log(playerCoins);
+
+  numberBets = {};
+  chosenNums = [];
+
+  const chips = document.querySelectorAll(".chip");
+  chips.forEach((chip) => chip.remove());
+
+  updatePlayerCoins()
+}
+
+
+

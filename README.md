@@ -3,8 +3,8 @@ The classic casino game roulette. Players can choose to bet on numbers or colors
 
 # Screenshot
 
-<img src="url to your image on imgur">
-<img src="url to your image on imgur">
+<img src="https://github.com/jmorgainz/roulette-project/blob/main/Screenshot%202023-08-18%20at%209.10.00%20AM.png">
+<img src="https://github.com/jmorgainz/roulette-project/blob/main/Screenshot%202023-08-18%20at%209.10.24%20AM.png">
 
 # Technologies Used
 
@@ -14,7 +14,7 @@ The classic casino game roulette. Players can choose to bet on numbers or colors
 
 # Getting Started
 
-[Click to View Project Planning](your Trello url here)
+
 [Click to Play Connect Four!](your deployment url here)
 
 # Next Steps

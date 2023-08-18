@@ -74,10 +74,12 @@ function handleGridClick(event) {
 }
 
 function spinWheel() {
-  winningNum = Math.floor(Math.random() * 1) + 1;
+  winningNum = Math.floor(Math.random() * 35) + 1;
   console.log(winningNum);
   document.getElementById("winMessage").textContent = ""
   document.getElementById("houseWinMessage").textContent = ""
+  // document.getElementById("winningNumber").textContent = `Winning Number: ${winningNum}`;
+
 
   if (numberBets[winningNum]) {
     playerCoins += numberBets[winningNum] * 35;
@@ -96,7 +98,7 @@ function spinWheel() {
     chosenNums = [];
     bet = 0;
   } else { document.getElementById("houseWinMessage").textContent ="The house wins!"
-}
+} alert(`The winning number is: ${winningNum}`);
   updatePlayerCoins();
 }
 
@@ -132,7 +134,7 @@ function initializeGameBoard() {
 }
 
 function initializePlayerCoins() {
-  playerCoins = 100;
+  playerCoins = 200;
   updatePlayerCoins();
 }
 
@@ -169,16 +171,17 @@ function clearBet() {
   console.log(numberBets);
 
   for (let number in numberBets) {
+    if (isNaN(numberBets[number])) {
     playerCoins += numberBets[number];
     numberBets[number] = 0;
+    }
   }
-
   console.log(playerCoins);
   
   playerCoins += redBetAmount
   redBetAmount = 0;
   console.log(playerCoins);
-  
+
   playerCoins += blackBetAmount
   blackBetAmount = 0;
   console.log(playerCoins);

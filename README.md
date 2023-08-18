@@ -13,9 +13,12 @@ The classic casino game roulette. Players can choose to bet on numbers or colors
 - CSS
 
 # Getting Started
+- Select the amount you want to bet using the buttons (1, 5, 10)
+- Select a number(s) and/or a color
+- If you win on a number it pays 35 to 1
+- If you win on a color its an even money bet
 
-
-[Click to Play Connect Four!](your deployment url here)
+Play here: https://jmorgainz.github.io/roulette-project/
 
 # Next Steps
 -In the future I plan to add more betting options
